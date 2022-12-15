@@ -1,0 +1,32 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  </head>
+  <body>
+    <h1>Choose Booking Date</h1>
+
+    <h2>너가 선택한 차량</h2>
+    <table>
+       {{#each selectcar}}
+       <tr> <!-- tonnage color year cc can be null no show -->
+        <td>{{Vin}}</td>
+        <td>{{Price}}만원</td>
+        <td>{{Company}}</td>
+        <td>{{Model_Name}}</td>
+        <td>{{Engine_Capacity}}</td>
+        <td>{{Tonnage}}</td>
+        <td>{{Color}}</td>
+        <td>{{Year}}년</td>
+       </tr>
+       {{/each}}
+    </table>
+    <h2>언제 보실?</h2>
+    <form method = "POST" action="/booking/{{vin}}">
+        <input type="date" name="bookdate">
+        <input type = "submit" value="제출">
+    </form>
+  </body>

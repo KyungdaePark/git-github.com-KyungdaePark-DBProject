@@ -19,6 +19,7 @@ import liveReload from 'livereload';
 import connectLiveReload from 'connect-livereload';
 
 import loginRouter from "./routes/login";
+import bookingRouter from "./routes/booking";
 
 const PORT = 3000;
 
@@ -47,6 +48,7 @@ app.use(logger("dev"));
 
 // Routers
 app.use("/", loginRouter);
+app.use("/booking", bookingRouter);
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);

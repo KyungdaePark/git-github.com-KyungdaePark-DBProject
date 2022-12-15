@@ -28,6 +28,7 @@
 </head>
 <body>
   <h1>CUSTOMER</h1>
+  <!-- button : 에약 조회 is here -->
   <div>
   <table>
     {{#each user}}
@@ -42,8 +43,10 @@
   </table>
   </div>
   <div>
+  <h2>You can buy this things : </h2>
   <table>
     {{#each canbuycars}}
+    <form method = "GET" action="/booking/{{Vin}}">
     <tr>
       <td>{{Model_Name}}</td>
       <td>{{Company}}</td>
@@ -57,7 +60,30 @@
       <td>{{Vin}}</td>
       <td>{{Price}}만원</td>
       <td>{{Saled}}</td>
+      <td><input type="submit" value="예약하기"></td>
     </tr>
+    </form>
+    {{/each}}
+  </table>
+  </div>
+  <div>
+  <h2>너가 예약한 차 : </h2>
+  <table>
+    {{#each mybookedcars}}
+    <form method = "POST" action="/booking/delete/{{SVin}}">
+    <tr>
+      <td>{{SVin}}</td>
+      <td>{{BookDate}}</td>
+      <td>{{Price}}만원</td>
+      <td>{{Company}}</td>
+      <td>{{Model_Name}}</td>
+      <td>{{Engine_Capacity}}cc</td>
+      <td>{{Tonnage}}</td>
+      <td>{{Color}}</td>
+      <td>{{Year}}</td>
+      <td><input type="submit" value="취소하기"></td>
+    </tr>
+    </form>
     {{/each}}
   </table>
   </div>

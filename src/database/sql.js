@@ -37,9 +37,25 @@ export const selectSql = {
       return rows
     }
   },
+
+  getBookedCar: async (id) => {
+    const [rows] = await promisePool.query(
+      `SELECT * FROM sale,vehicle,vehicle_info WHERE SSsn = ? AND svin = vin AND vehicle_info_id = info_id;`,
+      [id]
+    )
+    return rows;
+  },
+
   getAllCars: async () => {
     const [rows] = await promisePool.query(
       `SELECT * FROM vehicle;`
+    )
+    return rows;
+  },
+
+  getACar: async(vin) => {
+    const[rows] = await promisePool.query(
+      `SELECT * FROM vehicle, vehicle_info WHERE vin = ? AND vehicle_info_id = info_id;`, [vin]
     )
     return rows;
   },
@@ -49,5 +65,21 @@ export const selectSql = {
       `SELECT * FROM sale, vehicle, vehicle_info WHERE SSsn IS NULL AND BookDate IS NULL and vin = svin and vehicle_info_id = info_id;`
     )
     return rows;
+  }
+}
+
+export const updateSql = {
+  setBooking : async (sssn, vin, bookdate) => {
+    await promisePool.query(
+      `UPDATE sale SET SSsn = ?, BookDate = ? WHERE SVin = ?;`,
+      [sssn, bookdate, vin]
+    )
+  },
+
+  deleteBooking : async (vin) => {
+    await promisePool.query(
+      `UPDATE sale SET SSsn=NULL, BookDate=NULL WHERE SVin = ?;`,
+      [vin]
+    )
   }
 }

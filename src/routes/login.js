@@ -23,8 +23,9 @@ router.get('/', async (req, res) => {
         else if(req.cookies.User_Role == "CUSTOMER"){
             const user = await selectSql.getUsersInfo(req.cookies.User_Ssn, req.cookies.User_Role)
             const canbuycars = await selectSql.getCanbuyCars();
+            const mybookedcars = await selectSql.getBookedCar(req.cookies.User_Ssn);
             // TODO const bookedcars = await selectSql.
-            res.render('customer_main', {user, canbuycars})
+            res.render('customer_main', {user, canbuycars, mybookedcars})
         }
         else{ // 로그인 정보 오류
             res.clearCookie('User_Ssn')
