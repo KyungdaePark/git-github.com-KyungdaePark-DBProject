@@ -1,0 +1,48 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <script>
+    const logout = () => {window.location.href="http://localhost:3000/logout"};
+    const move = () => {window.location.href="http://localhost:3000/sugang"};
+  </script>
+</head>
+<body>
+    <h1>예약 정보</h1>
+    <table>
+      {{#each booked_cars}}
+      <tr>
+        <td>예약 번호</td>
+        <td>{{Sale_Id}}</td>
+      </tr>
+      <tr>
+        <td>자동차 정보</td>
+        <td>{{Company}}</td>
+        <td>{{Model_Name}}</td>
+        <td>{{Engine_Capacity}}</td>
+        <td>{{Tonnage}}</td>
+        <td>{{Color}}</td>
+        <td>{{Year}}</td>
+        <td><a href="edit_booking">{{Vin}}</a></td>
+        <td>{{Price}}</td>
+      </tr>
+      <tr>
+        <td>예약 고객</td>
+        <td><a href="edit_booking">{{Cname}}</a></td>
+        <td><a href="edit_booking">{{CEmail}}</a></td>
+        <td>{{City}}</td>
+        <td>{{Street}}</td>
+        <td>{{Detail_Address}}</td>
+        <td>{{BookDate}}</td>
+      </tr>
+      <tr>
+        <td>판매원</td>
+        <td><a href="edit_booking">{{Sname}}</a></td>
+        <td><a href="edit_booking">{{SEmail}}</a></td>
+      </tr>
+      {{/each}}
+     </table>
+</body>

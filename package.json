@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node ./src/index.js -e js,hbs,css" 
+    "start": "nodemon --exec babel-node ./src/index.js -e js,hbs,css"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "hbs": "^4.1.2",
+    "jQuery": "^1.7.4",
     "livereload": "^0.9.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3"

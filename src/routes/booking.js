@@ -34,7 +34,7 @@ router.post('/:vin', async function (req, res) {
 
 router.post('/delete/:vin', async function (req, res){
     const vin = req.params.vin;
-    await updateSql.deleteBooking(vin);
+    await updateSql.eraseBooking(vin);
     res.redirect('/');
 })
 
