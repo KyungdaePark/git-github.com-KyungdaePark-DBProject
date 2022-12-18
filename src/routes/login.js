@@ -1,26 +1,19 @@
 import cookieParser from "cookie-parser";
 import express from "express";
-import expressSession from 'express-session';
 import { selectSql } from "../database/sql";
 
 const router = express.Router();
 
-// 쿠키 및 세션 설정
 router.use(cookieParser());
-router.use(expressSession({
-    secret: 'dilab',
-    resave: true,
-    saveUninitialized: true,
-}))
 
 router.post('/logout', async (req, res) => {
     res.clearCookie('User_Role')
     res.clearCookie('User_Ssn')
     res.redirect('/')
 })
-// 로그인 정보 유무 판단
+
 router.get('/', async (req, res) => {
-    if (req.cookies.User_Ssn && req.cookies.User_Role) { //로그인한사람이 있으면
+    if (req.cookies.User_Ssn && req.cookies.User_Role) { 
         if(req.cookies.User_Role == "ADMIN"){
             const ssid = req.cookies.User_Ssn;
             const user = await selectSql.getUsersInfo(req.cookies.User_Ssn, req.cookies.User_Role)
@@ -43,7 +36,7 @@ router.get('/', async (req, res) => {
         else{ // 로그인 정보 오류
             res.clearCookie('User_Ssn')
             res.clearCookie('User_Role')
-            res.render('login'); // TODO : [alert] role information is not correct
+            res.render('login'); 
         }
     } else { // 없으면 login.hbs 던져줌
         res.render('login');
