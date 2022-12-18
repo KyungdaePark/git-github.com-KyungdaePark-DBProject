@@ -1,7 +1,4 @@
-import cookieParser from "cookie-parser";
 import express from "express";
-import expressSession from 'express-session';
-import { selectSql } from "../database/sql";
 import {updateSql} from "../database/sql";
 
 const router = express.Router();
@@ -20,7 +17,7 @@ router.post('/vehicle', async (req, res) => {
 })
 
 router.post('/reservation', async (req, res) => {
-    console.log(req.body);
+    await updateSql.updateSale(req.body);
     res.redirect('/')
 })
 

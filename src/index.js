@@ -23,7 +23,6 @@ import bookingRouter from "./routes/booking";
 import updateRouter from "./routes/update";
 import deleteRouter from "./routes/delete"
 import insertRouter from "./routes/insert"
-import adminRouter from "./routes/admin_page"
 
 const PORT = 3000;
 
@@ -56,7 +55,6 @@ app.use("/booking", bookingRouter);
 app.use("/update", updateRouter);
 app.use("/delete", deleteRouter);
 app.use("/insert", insertRouter);
-app.use("/admin", adminRouter)
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);

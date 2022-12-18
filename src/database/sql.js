@@ -14,14 +14,13 @@ const pool = mysql.createPool(
 );
 // async / await 사용
 const promisePool = pool.promise();
-
 export const selectSql = {
-  getUsers: async () => {
-    const [rows] = await promisePool.query(
-      `SELECT * FROM USER`
-    )
-    return rows
-  },
+    getUsers: async () => {
+      const [rows] = await promisePool.query(
+        `SELECT * FROM USER`
+      )
+      return rows
+    },
 
   getssn: async (ussn, role) => {
     if(role == "ADMIN"){
@@ -63,14 +62,14 @@ export const selectSql = {
   
   getAllVehicles: async() => {
     const [rows] = await promisePool.query(
-      `SELECT * FROM vehicle, sale WHERE SVin = Vin ORDER BY Vin;`
+      `SELECT * FROM vehicle ORDER BY Vin;`
     )
     return rows;
   },
 
   getAllVehicleInfos: async () => {
     const [rows] = await promisePool.query(
-      `SELECT * FROM vehicle_info;`
+      `SELECT * FROM vehicle_info ORDER BY Company, Model_Name;`
     )
     return rows;
   },
@@ -91,15 +90,10 @@ export const selectSql = {
 
   getBookedCars: async (ssid) => {
     const [rows] = await promisePool.query(
-      `SELECT * FROM sale, vehicle, vehicle_info, customer, salesperson WHERE SSid = ? AND Ssn = SSsn AND Sid = SSid AND SSsn IS NOT NULL AND SVin = Vin AND vehicle_info_id = info_id;`,
+      `SELECT * 
+       FROM sale, vehicle, vehicle_info, customer, salesperson 
+       WHERE SSid = ? AND Ssn = SSsn AND Sid = SSid AND SSsn IS NOT NULL AND SVin = Vin AND vehicle_info_id = info_id;`,
       [ssid]
-    )
-    return rows;
-  },
-
-  getVins: async() => {
-    const [rows] = await promisePool.query(
-      `SELECT Vin FROM Vehicle;`
     )
     return rows;
   },
@@ -111,23 +105,9 @@ export const selectSql = {
     return rows;
   },
 
-  getCustomers: async(ssid) => {
+  getAVehicle: async(vin) => {
     const [rows] = await promisePool.query(
-      `SELECT DISTINCT Sale_Id, Cname, Cemail FROM customer, sale WHERE SSsn = Ssn AND SSid=?;`, [ssid]
-    )
-    return rows;
-  },
-
-  getSalesperson: async(ssid) => {
-    const [rows] = await promisePool.query(
-      `SELECT DISTINCT Sname, Semail FROM Salesperson WHERE Sid=?;`, [ssid]
-    )
-    return rows;
-  },
-
-  getassn: async(cname) => {
-    const [rows] = await promisePool.query(
-      `SELECT Ssn FROM Customer WHERE Cname = ?;`, [cname]
+      `SELECT * FROM Vehicle WHERE Vin = ?`, [vin]
     )
     return rows;
   }
@@ -162,20 +142,12 @@ export const updateSql = {
   },
 
   updateVehicle : async (vehicle_data) => {
-    const OriginVin = vehicle_data.OriginVin==''?null:vehicle_data.OriginVin;
-    const vin = vehicle_data.Vin==''?null:vehicle_data.Vin;
-    const price = vehicle_data.Price==''?null:vehicle_data.Price;
+    const vin = vehicle_data.newvin==''?null:vehicle_data.newvin;
+    const price = vehicle_data.newprice==''?null:vehicle_data.newprice;
     const saled = vehicle_data.Saled==''?null:vehicle_data.Saled;
-    const info_id = vehicle_data.Vehicle_Info_Id==''?null:vehicle_data.Vehicle_Info_Id;
-    const ssid = vehicle_data.SSid==''?null:vehicle_data.SSid;
     await promisePool.query(
-      `UPDATE vehicle SET Vin=?, Price=?, Saled=?, Vehicle_Info_Id = ? WHERE Vin=?;`,
-      [vin, price, saled, info_id, OriginVin]
-    )
-
-    await promisePool.query(
-      `UPDATE sale SET SSid = ? WHERE SVin = ?`,
-      [ssid, vin]
+      `UPDATE vehicle SET Price=?, Saled=? WHERE Vin=?;`,
+      [price, saled, vin]
     )
   },
 
@@ -218,9 +190,6 @@ export const insertSql = {
     await promisePool.query(
       `INSERT INTO vehicle_info (Company, Model_Name, Engine_Capacity, Tonnage, Color, Year) VALUES (?, ?, ?, ?, ?, ?);`,
       [company, model_name, engine_capacity, tonnage, color, year]
-    )
-    await promisePool.query(
-      `INSERT INTO Sale`
     )
   },
 

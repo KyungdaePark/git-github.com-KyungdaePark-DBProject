@@ -27,28 +27,18 @@ router.get('/', async (req, res) => {
             const registered_car_info = await selectSql.getAllVehicleInfos();
             const registered_car = await selectSql.getAllVehicles();
             const booked_cars = await selectSql.getBookedCars(ssid);
-            console.log(booked_cars)
-            const vins = await selectSql.getVins();
-            const customers = await selectSql.getCustomers(ssid);
-            const salesperson = await selectSql.getSalesperson(ssid);
             const mycars = await selectSql.getMycars(ssid);
-            console.log(vins)
             res.render('saleman_main', {
                 Sname: user[0].Sname,
                 Semail: user[0].SEmail,
-                registered_car_info, registered_car, booked_cars, vins, customers, salesperson, mycars})
-            // res.render('saleperson_main',{
-            //     Sname: user[0].Sname,
-            //     Semail: user[0].SEmail,
-            //     vins,customers,salesperson
-            // })
+                registered_car_info, registered_car, booked_cars, mycars})
         }
         else if(req.cookies.User_Role == "CUSTOMER"){
             const user = await selectSql.getUsersInfo(req.cookies.User_Ssn, req.cookies.User_Role)
             const canbuycars = await selectSql.getCanbuyCars();
             const mybookedcars = await selectSql.getBookedCar(req.cookies.User_Ssn);
-            // TODO const bookedcars = await selectSql.
-            res.render('customer_main', {user, canbuycars, mybookedcars})
+            res.render('customer_main', {
+                user, canbuycars, mybookedcars})
         }
         else{ // 로그인 정보 오류
             res.clearCookie('User_Ssn')

@@ -1,7 +1,5 @@
-import cookieParser from "cookie-parser";
 import express from "express";
-import expressSession from 'express-session';
-import {insertSql} from '../database/sql';
+import {insertSql, selectSql} from '../database/sql';
 
 const router = express.Router();
 
@@ -15,4 +13,9 @@ router.post('/vehicle', async (req, res) => {
     res.redirect('/');
 })
 
+router.post('/find', async(req, res) => {
+    const data = await selectSql.getAVehicle(req.body.findvin)
+    console.log(data)
+    res.render('findVehicle', {data})
+})
 module.exports = router;

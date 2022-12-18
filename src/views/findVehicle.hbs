@@ -1,0 +1,41 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <script>
+    const logout = () => {window.location.href="http://localhost:3000/logout"};
+    const move = () => {window.location.href="http://localhost:3000/sugang"};
+  </script>
+  <style>
+    div{
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+    <h3>Vehicle 조회</h3>
+    <table border="1">
+      <th>차대 번호</th>
+      <th>가격(만원)</th>
+      <th>구매 여부</th>
+      <th>차량 정보 번호</th>
+      <form method="get" action="/">
+      {{#each data}}
+      <tr>
+        <td>{{Vin}}</td>
+        <td>{{Price}}</td>
+        <td>
+            {{#if Saled}} TRUE
+            {{else}} FALSE
+            {{/if}}
+        </td>
+        <td>{{Vehicle_Info_Id}}</td>
+        <td><input type="submit" value="뒤로가기"></td>   
+      </tr>
+      {{/each}}
+      </form>
+    </table>
+</body>

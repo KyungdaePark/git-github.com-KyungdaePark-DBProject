@@ -16,8 +16,6 @@ router.get("/:vin", async function (req, res){
     res.render('booking',{
         user: User_Ssn,
         vin: vin,
-        // today: today,
-        // maxdate: maxdate,
         selectcar,
     });
 })
@@ -28,7 +26,6 @@ router.post('/:vin', async function (req, res) {
     const User_Ssn = req.cookies.User_Ssn;
     // 다른놈이 인터셉트 해서 booking 해버리면 우짤 .... 이거 막자 
     await updateSql.setBooking(User_Ssn, vin, bookdate);
-    //TODO res.render('예약완료페이지')
     res.redirect('/');
 })
 

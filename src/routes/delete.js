@@ -1,8 +1,4 @@
-import cookieParser from "cookie-parser";
 import express from "express";
-import expressSession from 'express-session';
-import { selectSql } from "../database/sql";
-import {updateSql} from "../database/sql";
 import {deleteSql} from "../database/sql"
 
 const router = express.Router();
@@ -13,8 +9,8 @@ router.post('/vehicle_info/:info_id', async (req, res) => {
     res.redirect('/');
 })
 
-router.post('/vehicle/:vin', async (req, res) => {
-    const vin = req.params.vin;
+router.post('/vehicle', async (req, res) => {
+    const vin = req.body.newvin;
     await deleteSql.deleteVehicle(vin);
     res.redirect('/');
 })
