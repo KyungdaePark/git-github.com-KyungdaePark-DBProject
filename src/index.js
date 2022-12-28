@@ -26,15 +26,12 @@ import insertRouter from "./routes/insert"
 
 const PORT = 3000;
 
-//this is template. Everybody use like this.
-//from here
 const liveReloadServer = liveReload.createServer(); 
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh('/');
   }, 100)
 });
-//to here
 
 const app = express();
 
@@ -49,7 +46,6 @@ app.use(express.static(path.join(__dirname, 'public'))) // hbs가 css를 불러�
 
 app.use(logger("dev"));
 
-// Routers
 app.use("/", loginRouter);
 app.use("/booking", bookingRouter);
 app.use("/update", updateRouter);

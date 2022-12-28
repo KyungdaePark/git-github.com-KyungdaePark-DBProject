@@ -8,25 +8,32 @@
   </head>
   <body>
     <h1>Choose Booking Date</h1>
-
-    <h2>너가 선택한 차량</h2>
-    <table>
+    <h2>선택하신 차량 정보</h2>
+    <table border="1">
+      <th>차대 번호</th>
+      <th>가격</th>
+      <th>제조 회사</th>
+      <th>차량 모델</th>
+      <th>엔진 용량</th>
+      <th>차량 톤수</th>
+      <th>색상</th>
+      <th>제작 년도</th>
        {{#each selectcar}}
-       <tr> <!-- tonnage color year cc can be null no show -->
+       <tr>
         <td>{{Vin}}</td>
         <td>{{Price}}만원</td>
         <td>{{Company}}</td>
         <td>{{Model_Name}}</td>
-        <td>{{Engine_Capacity}}</td>
+        <td>{{Engine_Capacity}}cc</td>
         <td>{{Tonnage}}</td>
         <td>{{Color}}</td>
         <td>{{Year}}년</td>
        </tr>
        {{/each}}
     </table>
-    <h2>언제 보실?</h2>
+    <h2>예약 날짜를 선택해주세요</h2>
     <form method = "POST" action="/booking/{{vin}}">
-        <input type="date" name="bookdate">
-        <input type = "submit" value="제출">
+        <input type="date" min={{today}} max={{maxday}} name="bookdate" required>
+        <input type = "submit" value="입력">
     </form>
   </body>
